@@ -19,6 +19,25 @@
   --shadow-color: rgb(26 39 68 / 8%);
 }
 
+html.theme-dark {
+  color-scheme: dark;
+  --page-bg: #0b0b0d;
+  --surface: #111214;
+  --surface-raised: #171719;
+  --surface-muted: #1b1b1e;
+  --surface-hover: #252529;
+  --text-primary: #f4f4f5;
+  --text-secondary: #a1a1aa;
+  --text-tertiary: #73737d;
+  --border-color: #29292e;
+  --border-strong: #3a3a41;
+  --accent: #8b35f0;
+  --accent-hover: #9a4ff4;
+  --accent-soft: #2a1740;
+  --accent-text: #c084fc;
+  --shadow-color: rgb(0 0 0 / 38%);
+}
+
 * {
   box-sizing: border-box;
 }
@@ -50,7 +69,7 @@ a:focus-visible,
 input:focus-visible,
 select:focus-visible,
 textarea:focus-visible {
-  outline: 3px solid rgb(56 109 244 / 30%);
+  outline: 3px solid rgb(139 53 240 / 34%);
   outline-offset: 2px;
 }
 
@@ -65,10 +84,10 @@ textarea:focus-visible {
   --text-tertiary: #929db0;
   --border-color: #e9edf3;
   --border-strong: #dce2eb;
-  --accent: #386df4;
-  --accent-hover: #2e5edb;
-  --accent-soft: #edf3ff;
-  --accent-text: #2f63e8;
+  --accent: #7c3aed;
+  --accent-hover: #6d28d9;
+  --accent-soft: #f3e8ff;
+  --accent-text: #7c3aed;
   --shadow-color: rgb(26 39 68 / 8%);
   min-height: 100vh;
   background: var(--page-bg);
@@ -78,21 +97,21 @@ textarea:focus-visible {
 
 .dashboard-root.theme-dark {
   color-scheme: dark;
-  --page-bg: #11151d;
-  --surface: #191f2a;
-  --surface-raised: #1d2431;
-  --surface-muted: #171d27;
-  --surface-hover: #242d3b;
-  --text-primary: #e9edf5;
-  --text-secondary: #a0acc0;
-  --text-tertiary: #77849a;
-  --border-color: #2a3443;
-  --border-strong: #394557;
-  --accent: #5b86ff;
-  --accent-hover: #7197ff;
-  --accent-soft: #202e4c;
-  --accent-text: #93afff;
-  --shadow-color: rgb(0 0 0 / 28%);
+  --page-bg: #0b0b0d;
+  --surface: #111214;
+  --surface-raised: #171719;
+  --surface-muted: #1b1b1e;
+  --surface-hover: #252529;
+  --text-primary: #f4f4f5;
+  --text-secondary: #a1a1aa;
+  --text-tertiary: #73737d;
+  --border-color: #29292e;
+  --border-strong: #3a3a41;
+  --accent: #8b35f0;
+  --accent-hover: #9a4ff4;
+  --accent-soft: #2a1740;
+  --accent-text: #c084fc;
+  --shadow-color: rgb(0 0 0 / 38%);
 }
 
 .sidebar {
@@ -122,9 +141,9 @@ textarea:focus-visible {
   height: 31px;
   place-items: center;
   border-radius: 9px;
-  background: linear-gradient(145deg, #4a80ff, #2d5ee2);
+  background: linear-gradient(145deg, #9b4df5, #7027d9);
   color: #fff;
-  box-shadow: 0 3px 8px rgb(56 109 244 / 25%);
+  box-shadow: 0 3px 8px rgb(124 58 237 / 25%);
 }
 
 .brand-name {
@@ -2420,4 +2439,123 @@ textarea:focus-visible {
   .application-dialog .modal-footer .button-secondary {
     flex: 1;
   }
+}
+
+html.theme-dark .dashboard-root.theme-dark .nav-link-active {
+  background: #8736e8;
+  color: #fff;
+}
+
+html.theme-dark .dashboard-root.theme-dark .nav-link-active:hover {
+  background: #974bed;
+  color: #fff;
+}
+
+html.theme-dark .brand-symbol {
+  background: linear-gradient(145deg, #9b4df5, #7027d9);
+}
+
+html.theme-dark .topbar-avatar,
+html.theme-dark .profile-avatar,
+html.theme-dark .workspace-avatar {
+  background: #2a1740;
+  color: #d3a9ff;
+}
+
+html.theme-dark .metric-blue {
+  background: #101b32;
+  color: #83a9ff;
+}
+
+html.theme-dark .metric-slate {
+  background: #24252a;
+  color: #b0b3bc;
+}
+
+html.theme-dark .metric-violet {
+  background: #27163a;
+  color: #c9a0ff;
+}
+
+html.theme-dark .metric-amber {
+  background: #30200f;
+  color: #f0b968;
+}
+
+html.theme-dark .metric-green {
+  background: #10251a;
+  color: #67d99a;
+}
+
+html.theme-dark .metric-rose,
+html.theme-dark .metric-pink {
+  background: #2b171b;
+  color: #f08a9f;
+}
+
+html.theme-dark .mark-0 {
+  background: #17213a;
+  color: #91adff;
+}
+
+html.theme-dark .mark-1 {
+  background: #281a39;
+  color: #c6a2ff;
+}
+
+html.theme-dark .mark-2 {
+  background: #14291e;
+  color: #77dba4;
+}
+
+html.theme-dark .mark-3 {
+  background: #302113;
+  color: #efbd78;
+}
+
+html.theme-dark .mark-4 {
+  background: #301b20;
+  color: #f08e99;
+}
+
+html.theme-dark .status-applied,
+html.theme-dark .status-withdrawn {
+  background: #25262a;
+  color: #b2b5bf;
+}
+
+html.theme-dark .status-interview {
+  background: #2b1740;
+  color: #d2a8ff;
+}
+
+html.theme-dark .status-assessment {
+  background: #35240f;
+  color: #f1c174;
+}
+
+html.theme-dark .status-offer {
+  background: #123020;
+  color: #6de0a7;
+}
+
+html.theme-dark .status-rejected {
+  background: #351c20;
+  color: #ff9a9e;
+}
+
+html.theme-dark .delete-action:hover,
+html.theme-dark .actions-popover .menu-delete:hover {
+  background: #351c20;
+  color: #ff9a9e;
+}
+
+html.theme-dark .confirm-icon {
+  background: #351c20;
+  color: #ff9a9e;
+}
+
+html.theme-dark .application-form .control::placeholder,
+html.theme-dark .application-form .textarea::placeholder {
+  color: #74747e;
 }
