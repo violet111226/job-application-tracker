@@ -3,7 +3,7 @@
 import { ArrowDown, ArrowUp, BriefcaseBusiness, ExternalLink, MoreHorizontal } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { StatusBadge } from "@/components/ui/StatusBadge";
+import { EditableStatusBadge } from "@/components/ui/EditableStatusBadge";
 import type { Application } from "@/types/application";
 import { formatDate, formatSalary } from "@/lib/utils";
 
@@ -14,6 +14,7 @@ export function ApplicationTable({
   onView,
   onEdit,
   onDelete,
+  onStatusChange,
 }: {
   applications: Application[];
   sortDirection: "asc" | "desc";
@@ -21,6 +22,7 @@ export function ApplicationTable({
   onView: (application: Application) => void;
   onEdit: (application: Application) => void;
   onDelete: (application: Application) => void;
+  onStatusChange: (application: Application, status: Application["status"]) => void;
 }) {
   const [openMenu, setOpenMenu] = useState<{
     application: Application;
@@ -106,7 +108,7 @@ export function ApplicationTable({
                 <td>{application.city || application.workArrangement}{application.province ? `, ${application.province}` : ""}</td>
                 <td>{formatSalary(application.salaryMin, application.salaryMax, application.currency)}</td>
                 <td>{formatDate(application.applicationDate)}</td>
-                <td><StatusBadge status={application.status} /></td>
+                <td><EditableStatusBadge status={application.status} label={`${application.position} at ${application.company}`} onChange={(status) => onStatusChange(application, status)} /></td>
                 <td>
                   <div className="row-actions">
                     <div className="actions-menu">
@@ -132,7 +134,7 @@ export function ApplicationTable({
           <article className="application-card" key={application.id}>
             <div className="application-card-top">
               <div className="company-cell"><span className={`company-mark mark-${application.company.length % 5}`}>{application.company.slice(0, 1)}</span><div><p className="company-name">{application.company}</p><p className="position-cell">{application.position}</p></div></div>
-              <StatusBadge status={application.status} />
+              <EditableStatusBadge status={application.status} label={`${application.position} at ${application.company}`} onChange={(status) => onStatusChange(application, status)} />
             </div>
             <div className="application-card-meta"><span>{formatDate(application.applicationDate)}</span><span>{application.city || application.workArrangement}</span><span>{formatSalary(application.salaryMin, application.salaryMax, application.currency)}</span></div>
             <div className="application-card-actions"><button className="text-link" onClick={() => onView(application)}>View details</button><button className="icon-button" onClick={() => onEdit(application)}>Edit</button><button className="icon-button delete-action" onClick={() => onDelete(application)}>Delete</button></div>

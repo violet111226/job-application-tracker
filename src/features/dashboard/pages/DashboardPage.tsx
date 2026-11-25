@@ -8,13 +8,17 @@ import { ApplicationFilters } from "@/features/applications/components/Applicati
 import { ApplicationTable } from "@/features/applications/components/ApplicationTable";
 import { AddApplicationDialog } from "@/features/applications/components/AddApplicationDialog";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
+import { SectionPagination } from "@/components/ui/SectionPagination";
 import type { Application } from "@/types/application";
+
+const PAGE_SIZE = 10;
 
 export default function DashboardPage() {
   const router = useRouter();
   const { applications, isLoaded, usingSamples, saveApplication, deleteApplication } = useApplications();
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState<"asc" | "desc">("desc");
+  const [page, setPage] = useState(1);
   const [dialog, setDialog] = useState<"add" | "edit" | "view" | null>(null);
   const [selected, setSelected] = useState<Application | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<Application | null>(null);
@@ -34,6 +38,9 @@ export default function DashboardPage() {
     .sort((a, b) => sort === "desc"
       ? b.applicationDate.localeCompare(a.applicationDate)
       : a.applicationDate.localeCompare(b.applicationDate)), [applications, search, sort]);
+  const pageCount = Math.max(1, Math.ceil(visible.length / PAGE_SIZE));
+  const currentPage = Math.min(page, pageCount);
+  const pageApplications = visible.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
 
   const stats = [
     { label: "Total Applications", count: applications.length, icon: BriefcaseBusiness, className: "metric-blue", detail: "Across your search" },
@@ -60,11 +67,10 @@ export default function DashboardPage() {
 
       <section className="panel applications-panel">
         <div className="panel-heading applications-heading"><div><h2>Recent Applications</h2><p>{visible.length} application{visible.length === 1 ? "" : "s"}</p></div><button className="text-link" onClick={() => router.push("/applications")}>View all</button></div>
-        <ApplicationFilters search={search} onSearch={setSearch} />
-        {!isLoaded ? <div className="empty-state"><p>Loading your applications…</p></div> : (
-          <ApplicationTable applications={visible.slice(0, 5)} sortDirection={sort} onToggleSort={() => setSort((value) => value === "desc" ? "asc" : "desc")} onView={(item) => { setSelected(item); setDialog("view"); }} onEdit={(item) => { setSelected(item); setDialog("edit"); }} onDelete={setDeleteTarget} />
-        )}
+        <ApplicationFilters search={search} onSearch={(value) => { setSearch(value); setPage(1); }} />
+        {!isLoaded ? <div className="empty-state"><p>Loading your applications…</p></div> : <ApplicationTable applications={pageApplications} sortDirection={sort} onToggleSort={() => setSort((value) => value === "desc" ? "asc" : "desc")} onView={(item) => { setSelected(item); setDialog("view"); }} onEdit={(item) => { setSelected(item); setDialog("edit"); }} onDelete={setDeleteTarget} onStatusChange={(item, nextStatus) => saveApplication({ ...item, status: nextStatus })} />}
       </section>
+      {isLoaded ? <SectionPagination currentPage={currentPage} pageCount={pageCount} totalItems={visible.length} pageSize={PAGE_SIZE} onPageChange={setPage} /> : null}
 
       {dialog ? <AddApplicationDialog application={selected ?? undefined} onView={dialog === "view"} onClose={() => { setDialog(null); setSelected(null); }} onSave={(item) => { saveApplication(item); setDialog(null); setSelected(null); }} /> : null}
       {deleteTarget ? <ConfirmDialog title="Delete application?" description={`Remove ${deleteTarget.position} at ${deleteTarget.company} from your tracker?`} onCancel={() => setDeleteTarget(null)} onConfirm={() => { deleteApplication(deleteTarget.id); setDeleteTarget(null); }} /> : null}
